@@ -1,28 +1,26 @@
+from typing import DefaultDict
 from pytz import utc
 from time import sleep
-
-from apscheduler.schedulers.background import BackgroundScheduler
+from win10toast import ToastNotifier
+from apscheduler.schedulers.qt import QtScheduler
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
-from apscheduler.executors.pool import ThreadPoolExecutor, ProcessPoolExecutor
+from datetime import datetime
 
-def speak():
-    print("Hello world!\n")
+class Scheduler():
 
-jobstores = {
-    'default': SQLAlchemyJobStore(url='sqlite:///jobs.sqlite')
-}
-executors = {
-    'default': ThreadPoolExecutor(20),
-    'processpool': ProcessPoolExecutor(5)
-}
-job_defaults = {
-    'coalesce': False,
-    'max_instances': 3
-}
-scheduler = BackgroundScheduler(jobstores=jobstores, executors=executors, job_defaults=job_defaults, timezone=utc)
+    __jobstore = {'default':SQLAlchemyJobStore("sqlite:///hector.sqlite")}
+    __job_defaults = {'misfire_grace_time':None,'coalesce':True}
+    apscheduler = QtScheduler(jobstores=__jobstore,job_defaults=__job_defaults)
 
-scheduler.start()
+    def __init__(self):
+        self.notifier = ToastNotifier()
+        self.jobs = self.apscheduler.get_jobs()
+        self.apscheduler.start()
+    
+    def defaultFunc(self, title: str, msg: str):
+        self.notifier.show_toast(title=title, msg=msg, duration=10, threaded=True)
 
-while(True):
-    sleep(1)
-    print("One second passed!")
+    def add_date_job(self, date, title: str, msg: str, repeating: bool=False, weeks=None, days=None, hours=None, minutes=None, seconds=None):
+        if(repeating == True): 
+            self.apscheduler.add_job(self.defaultFunc, "trigger", [title, msg],start_date=date, weeks=weeks, days=days, hours=hours, minutes=minutes, seconds=seconds)
+        self.apscheduler.add_job(self.defaultFunc, "date", [title, msg], run_date=date)

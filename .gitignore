@@ -130,3 +130,6 @@ dmypy.json
 
 #sqlite testing
 *.sqlite
+
+#PyQt
+.qt_for_python/

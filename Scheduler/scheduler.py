@@ -64,14 +64,17 @@ class Scheduler():
             job["id"] = x.id
             if(date != None):
                 target_date = datetime.combine(date, datetime.max.time()).replace(tzinfo=ZoneInfo("Asia/Bangkok"))
-                if((job['Type'] == "interval") and (target_date > job['__date'])):
-                    if(((target_date - job['__date'] + job['Interval']) % job['Interval']) > timedelta(days=1)):
-                        continue
+                if((job['Type'] == "interval")):
+                    if(target_date > job['__date']):
+                        if(((target_date - job['__date'] + job['Interval']) % job['Interval']) > timedelta(days=1)):
+                            continue
+                        else:
+                            while(target_date.date() > date_run.date()):
+                                date_run = date_run + job['Interval']
+                                if(date_run.date() == target_date.date()):
+                                    job["Date"] = date_run.strftime("%a %#d %b %Y %r")
                     else:
-                        while(target_date.date() > date_run.date()):
-                            date_run = date_run + job['Interval']
-                            if(date_run.date() == target_date.date()):
-                                job["Date"] = date_run.strftime("%a %#d %b %Y %r")
+                        continue
                 if(job['Type'] == "date"):
                     if(job['__date'].date() != date):
                         continue

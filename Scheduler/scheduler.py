@@ -1,6 +1,3 @@
-from typing import DefaultDict
-from pytz import utc
-from time import sleep
 from win10toast import ToastNotifier
 from apscheduler.schedulers.qt import QtScheduler
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore

@@ -24,7 +24,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="jobNameEdit_2"/>
+      <widget class="QLineEdit" name="jobNameEdit"/>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="label_5">
@@ -34,7 +34,7 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QTextEdit" name="jobDescEdit_2"/>
+      <widget class="QTextEdit" name="jobDescEdit"/>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label_15">
@@ -51,14 +51,14 @@
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="QRadioButton" name="IntervalRadioBtn_2">
+      <widget class="QRadioButton" name="IntervalRadioBtn">
        <property name="text">
         <string/>
        </property>
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QDateTimeEdit" name="dateTimeEdit_2">
+      <widget class="QDateTimeEdit" name="dateTimeEdit">
        <property name="displayFormat">
         <string>dd/MM/yyyy HH:mm:ss</string>
        </property>
@@ -75,7 +75,7 @@
       </widget>
      </item>
      <item row="6" column="1">
-      <widget class="QSpinBox" name="minutesSpinBox_2"/>
+      <widget class="QSpinBox" name="minutesSpinBox"/>
      </item>
      <item row="8" column="0">
       <widget class="QLabel" name="label_18">
@@ -85,7 +85,7 @@
       </widget>
      </item>
      <item row="8" column="1">
-      <widget class="QSpinBox" name="daysSpinBox_2"/>
+      <widget class="QSpinBox" name="daysSpinBox"/>
      </item>
      <item row="7" column="0">
       <widget class="QLabel" name="label_19">
@@ -102,13 +102,13 @@
       </widget>
      </item>
      <item row="7" column="1">
-      <widget class="QSpinBox" name="hoursSpinBox_2"/>
+      <widget class="QSpinBox" name="hoursSpinBox"/>
      </item>
      <item row="9" column="1">
-      <widget class="QSpinBox" name="weeksSpinBox_2"/>
+      <widget class="QSpinBox" name="weeksSpinBox"/>
      </item>
      <item row="10" column="1">
-      <widget class="QPushButton" name="manualJobAddBtn_2">
+      <widget class="QPushButton" name="manualJobAddBtn">
        <property name="text">
         <string>Add</string>
        </property>
@@ -122,7 +122,7 @@
       </widget>
      </item>
      <item row="5" column="1">
-      <widget class="QSpinBox" name="secondsSpinBox_2"/>
+      <widget class="QSpinBox" name="secondsSpinBox"/>
      </item>
      <item row="0" column="1">
       <widget class="QLabel" name="label_7">

@@ -386,7 +386,7 @@ class EmasWorker(QObject):
     @pyqtSlot()
     def main(self):
         try:
-            eapi = EmasAPI(debug=True)
+            eapi = EmasAPI(debug=False)
         except OSError:
             self.finished.emit(False, ["Error loading firefox driver.\nPlease install the latest version of firefox!"])
             return

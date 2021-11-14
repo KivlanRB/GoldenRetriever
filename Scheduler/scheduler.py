@@ -14,8 +14,11 @@ class Scheduler():
     notifier = ToastNotifier()
 
     def __init__(self):
+        print("Init started " + str(datetime.now()))
         self.apscheduler.start()
+        print("Init Finished, getting jobs " + str(datetime.now()))
         self.jobs = self.apscheduler.get_jobs()
+        print("Getting jobs finished " + str(datetime.now()))
     
     def __job_to_dict(self, x):
         job = dict()
@@ -45,13 +48,15 @@ class Scheduler():
         if self.__debug:
             print("Job executed at {}".format(datetime.now()))
         self.notifier.show_toast(title=title, msg=msg, duration=10, threaded=True)
+    
+    def refresh(self):
+        self.jobs = self.apscheduler.get_jobs()
 
     def add_date_job(self, date, name: str, desc: str, repeating: bool=False, weeks=0, days=0, hours=0, minutes=0, seconds=0):
         if(repeating): 
             self.apscheduler.add_job(self.defaultFunc, "interval", [name, desc], name=name, start_date=date, weeks=weeks, days=days, hours=hours, minutes=minutes, seconds=seconds)
         else: 
             self.apscheduler.add_job(self.defaultFunc, "date", [name, desc], name=name, run_date=date)
-        self.jobs = self.apscheduler.get_jobs()
 
     def modify_job(self, job_id, name, desc, date, repeating: bool=False, weeks=0, days=0, hours=0, minutes=0, seconds=0):
         self.apscheduler.modify_job(job_id, name=name, args = [self, name, desc])
@@ -59,7 +64,6 @@ class Scheduler():
             self.apscheduler.reschedule_job(job_id, trigger="interval", start_date=date, weeks=weeks, days=days, hours=hours, minutes=minutes, seconds=seconds)
         else:
             self.apscheduler.reschedule_job(job_id, trigger="date", run_date=date)
-        self.jobs = self.apscheduler.get_jobs()
 
     def get_job(self, job_id) -> dict:
         job = self.apscheduler.get_job(job_id)

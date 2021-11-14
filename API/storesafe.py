@@ -29,6 +29,10 @@ class StoreSafe(object):
     
     def _get_value(self, key):
         return keyring.get_password(self.service_id, key)
+    
+    def _delete_creds(self):
+        keyring.delete_password(self.service_id, "username")
+        keyring.delete_password(self.service_id, "password")
 
 if __name__ == "__main__":
     uname = input("username: ")

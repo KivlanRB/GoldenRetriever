@@ -37,7 +37,7 @@ class EmasAPI():
             if not debug:
                 options.headless = True
             self.driver = webdriver.Firefox(options=options, executable_path=GeckoDriverManager().install())
-        except (ValueError, WebDriverException):
+        except:
             raise OSError("Error loading firefox driver!")
         self.driver.set_page_load_timeout(5)
         self.emas_login_status = False

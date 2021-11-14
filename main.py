@@ -57,10 +57,6 @@ class GoldenRetriever(QMainWindow):
         self.ui.gcalendarSyncBtn.clicked.connect(self._google_loading)
         self.setStyleSheet(qdarkstyle.load_stylesheet())
 
-        self.clock_timer = QTimer(self)
-        self.clock_timer.timeout.connect(self.__update_clock)
-        self.clock_timer.start(1000)
-
         self.__setup_tree_views()
 
     def closeEvent(self, event: QCloseEvent) -> None:
@@ -76,9 +72,6 @@ class GoldenRetriever(QMainWindow):
     def __clicked_reason(self, reason, func):
         if reason == QSystemTrayIcon.DoubleClick:
             func()
-    
-    def __update_clock(self):
-        self.ui.clkLabel.setText(datetime.datetime.now().strftime("%A, %#d %B %Y %H:%M:%S"))
         
     def __setup_tree_views(self):
         now = datetime.datetime.now()
@@ -123,6 +116,8 @@ class GoldenRetriever(QMainWindow):
     
     def _site_integration(self, success, deadlines, source):
         if not success:
+            self.store._delete_creds()
+            QMessageBox.critical(self, "Error!", deadlines[0])
             return
         for job in self.obj_scheduler.get_jobs():
             try:
@@ -165,6 +160,7 @@ class GoldenRetriever(QMainWindow):
         return job_id[job_id.find(" ")+1:] if job_id.startswith("id: ") else None
     
     def refresh(self):
+        self.obj_scheduler.refresh()
         self.ui.nw_jobTreeWidget.clear()
         self.ui.hm_jobTreeWidget.clear()
         self.__setup_tree_views()
@@ -389,15 +385,20 @@ class EmasWorker(QObject):
 
     @pyqtSlot()
     def main(self):
-        eapi = EmasAPI(debug=False)
+        try:
+            eapi = EmasAPI(debug=True)
+        except OSError:
+            self.finished.emit(False, ["Error loading firefox driver.\nPlease install the latest version of firefox!"])
+            return
         eapi.login(self.uname, self.pword)
-        if eapi.emas_login():
+        res, msg = eapi.emas_login()
+        if res == 1:
             self.arr = eapi.get_timeline()
             eapi.close()
             self.finished.emit(True, self.arr)
         else:
-            self.arr = []
-            self.finished.emit(False, self.arr)
+            eapi.close()
+            self.finished.emit(False, [msg])
 
 class GCalendarWorker(QObject):
     finished = pyqtSignal(bool, list)

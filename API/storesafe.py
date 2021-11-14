@@ -23,6 +23,12 @@ class StoreSafe(object):
             return None, None
         pword = codecs.decode(pword, "rot_13")
         return uname, pword
+    
+    def _set_value(self, key, val):
+        keyring.set_password(self.service_id, key, val)
+    
+    def _get_value(self, key):
+        return keyring.get_password(self.service_id, key)
 
 if __name__ == "__main__":
     uname = input("username: ")

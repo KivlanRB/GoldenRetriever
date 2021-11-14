@@ -173,10 +173,13 @@ class GoldenRetriever(QMainWindow):
 Screenshot the program and send it to the devs for further investigation!
             """)
             return
-        
-        editJob = editJobWindow(self, job_id)
-        editJob.setWindowTitle("Edit job")
-        editJob.show()
+        try:
+            editJob = editJobWindow(self, job_id)
+            editJob.setWindowTitle("Edit job")
+            editJob.show()
+        except (ValueError,OSError) as e:
+            QMessageBox.critical(self, "Error!", str(e))
+            self.refresh()
     
     def jobs_to_treeview(self, date=None):
         jobs = self.obj_scheduler.get_jobs(date)
@@ -280,9 +283,11 @@ class editJobWindow(QDialog):
                 self.sched = parent.parent().obj_scheduler
                 self.job = self.sched.get_job(self.job_id)
             except:
-                QMessageBox.critical(self, "Error!", "Could not reach the scheduler!")
-                self.close()
-                return
+                raise OSError("Could not reach Scheduler!")
+        
+        if not self.job:
+            raise ValueError("Job could not be found!")
+
         if self.job['Type'] == 'interval':
             total_seconds = self.job['Interval'].total_seconds()
             seconds = int(total_seconds % 60)

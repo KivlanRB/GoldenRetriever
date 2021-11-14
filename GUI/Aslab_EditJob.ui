@@ -108,7 +108,7 @@
       <widget class="QSpinBox" name="weeksSpinBox"/>
      </item>
      <item row="10" column="1">
-      <widget class="QPushButton" name="manualJobAddBtn">
+      <widget class="QPushButton" name="manualJobEditBtn">
        <property name="text">
         <string>Add</string>
        </property>
@@ -136,6 +136,13 @@
        </property>
        <property name="text">
         <string>Edit Job</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="0">
+      <widget class="QPushButton" name="deleteJobBtn">
+       <property name="text">
+        <string>Delete Event</string>
        </property>
       </widget>
      </item>

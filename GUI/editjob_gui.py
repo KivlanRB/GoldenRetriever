@@ -69,9 +69,9 @@ class Ui_Dialog(object):
         self.weeksSpinBox = QtWidgets.QSpinBox(Dialog)
         self.weeksSpinBox.setObjectName("weeksSpinBox")
         self.formLayout_3.setWidget(9, QtWidgets.QFormLayout.FieldRole, self.weeksSpinBox)
-        self.manualJobAddBtn = QtWidgets.QPushButton(Dialog)
-        self.manualJobAddBtn.setObjectName("manualJobAddBtn")
-        self.formLayout_3.setWidget(10, QtWidgets.QFormLayout.FieldRole, self.manualJobAddBtn)
+        self.manualJobEditBtn = QtWidgets.QPushButton(Dialog)
+        self.manualJobEditBtn.setObjectName("manualJobEditBtn")
+        self.formLayout_3.setWidget(10, QtWidgets.QFormLayout.FieldRole, self.manualJobEditBtn)
         self.label_6 = QtWidgets.QLabel(Dialog)
         self.label_6.setObjectName("label_6")
         self.formLayout_3.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.label_6)
@@ -87,6 +87,9 @@ class Ui_Dialog(object):
         self.label_7.setFont(font)
         self.label_7.setObjectName("label_7")
         self.formLayout_3.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.label_7)
+        self.deleteJobBtn = QtWidgets.QPushButton(Dialog)
+        self.deleteJobBtn.setObjectName("deleteJobBtn")
+        self.formLayout_3.setWidget(10, QtWidgets.QFormLayout.LabelRole, self.deleteJobBtn)
         self.horizontalLayout.addLayout(self.formLayout_3)
 
         self.retranslateUi(Dialog)
@@ -104,9 +107,10 @@ class Ui_Dialog(object):
         self.label_18.setText(_translate("Dialog", "Days"))
         self.label_19.setText(_translate("Dialog", "Hours"))
         self.label_20.setText(_translate("Dialog", "Weeks"))
-        self.manualJobAddBtn.setText(_translate("Dialog", "Add"))
+        self.manualJobEditBtn.setText(_translate("Dialog", "Add"))
         self.label_6.setText(_translate("Dialog", "Seconds"))
         self.label_7.setText(_translate("Dialog", "Edit Job"))
+        self.deleteJobBtn.setText(_translate("Dialog", "Delete Event"))
 
 
 if __name__ == "__main__":

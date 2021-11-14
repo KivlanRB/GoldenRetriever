@@ -18,8 +18,11 @@ class GoogleAPI():
 
     def login(self):
         if not os.path.exists(self.client_secret):
-            print(os.getcwd())
-            raise FileNotFoundError("No client secret detected!")
+            if not os.path.exists(os.path.join(os.getcwd(), "API", "client_secret.json")):
+                raise FileNotFoundError("No client secret detected!")
+            else:
+                self.client_secret = os.path.join(os.getcwd(), "API", "client_secret.json")
+                self.token = os.path.join(os.getcwd(), "API", "token.json")
 
         creds = None
         if os.path.exists(self.token):
@@ -36,7 +39,7 @@ class GoogleAPI():
         self.service = build('calendar', 'v3', credentials=creds)
         
 
-    def GetTask(self,Date:datetime.date,limit=10):
+    def GetTask(self,Date:datetime.date=None,limit=10):
         print('Getting the upcoming {} events'.format(limit))
         now = datetime.datetime.utcnow().isoformat() + 'Z'
         events_result = self.service.events().list(calendarId='primary', timeMin=now, maxResults=limit, singleEvents=True,orderBy='startTime').execute()

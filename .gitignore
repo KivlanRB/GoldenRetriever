@@ -133,3 +133,4 @@ dmypy.json
 
 #PyQt
 .qt_for_python/
+API/token.json

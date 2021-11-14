@@ -14,11 +14,8 @@ class Scheduler():
     notifier = ToastNotifier()
 
     def __init__(self):
-        print("Init started " + str(datetime.now()))
         self.apscheduler.start()
-        print("Init Finished, getting jobs " + str(datetime.now()))
         self.jobs = self.apscheduler.get_jobs()
-        print("Getting jobs finished " + str(datetime.now()))
     
     def __job_to_dict(self, x):
         job = dict()

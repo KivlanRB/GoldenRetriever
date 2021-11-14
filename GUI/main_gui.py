@@ -298,6 +298,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addItem(spacerItem8)
         self.trayRadioBtn = QtWidgets.QRadioButton(self.verticalLayoutWidget_2)
         self.trayRadioBtn.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.trayRadioBtn.setChecked(True)
         self.trayRadioBtn.setObjectName("trayRadioBtn")
         self.verticalLayout_2.addWidget(self.trayRadioBtn)
         self.uiSyncBtn = QtWidgets.QPushButton(self.verticalLayoutWidget_2)
@@ -316,7 +317,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
